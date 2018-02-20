@@ -23,7 +23,6 @@ Return wallet balance.
 	$balance = $krbWallet->getBalance();
 ?>
 ```
-
 ###### Output data: ######
 ```
 {
@@ -44,7 +43,6 @@ Returns wallet address.
 	$balance = $krbWallet->getAddress();
 ?>
 ```
-
 ###### Output data: ######
 ```
 {
@@ -64,7 +62,6 @@ Returns the last top known block height for simplewallet. This method can be use
 	$balance = $krbWallet->getHeight();
 ?>
 ```
-
 ###### Output data: ######
 ```
 {
@@ -84,7 +81,6 @@ Returns the list of all the wallet's incoming and outgoing transfers.
 	$balance = $krbWallet->getTransfers();
 ?>
 ```
-
 ###### Output data: ######
 ```
 {
@@ -125,7 +121,6 @@ Receives all the payments with a corresponding payment_id that were sent to the 
 	$krbWallet->getPayments($paymentId);
 ?>
 ```
-
 ###### Output data: ######
 ```
 {
@@ -161,7 +156,6 @@ Please note: fee param is a mandatory and should not be less than 0.0001 KRB.
     $krbWallet->transfer($transData, $paymentID, $fee, $unlock_time);
 ?>
 ```
-
 ###### Output data: ######
 ```
 {
@@ -185,7 +179,6 @@ Store wallet data.
 	$balance = $krbWallet->store();
 ?>
 ```
-
 ###### Output data: ######
 ```
 {
@@ -204,7 +197,6 @@ Erases simplewallet's internal state but keeps safe the wallet.bin. The method s
 	$balance = $krbWallet->reset();
 ?>
 ```
-
 ###### Output data: ######
 ```
 {
