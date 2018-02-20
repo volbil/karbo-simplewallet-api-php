@@ -14,7 +14,7 @@ class Karbo {
 
 	/**
 	 * Username for authentication
-	 * Keep this field empty, if don't care about security of your krb :)
+	 * Keep this field empty, if don't care about security of your KRB :)
 	 */
 	const RPC_USER = "USERNAME";
 
@@ -34,14 +34,14 @@ class Karbo {
 	const RPC_TIMER = 50000;
 
 	/**
-	 * Decimal point, needed for krb amount calculations
-	 * (don't change this value, because it may cause loss of your krb)
+	 * Decimal point, needed for KRB amount calculations
+	 * (don't change this value, because it may cause loss of your KRB)
 	 */
 	const DECIMAL_POINT = 12;
 
 	/**
 	 * Number of decimal places
-	 * (you may change this value, if price of krb goes to high one day)
+	 * (you may change this value, if price of KRB goes to high one day)
 	 */
 	const PREC_POINT = 4;
 
@@ -49,17 +49,16 @@ class Karbo {
 	 * ID of request, you can put here whatever you want
 	 * (actually I don't now purpose of this field, maybe you find out it :D)
 	 */
-	const ID_CONN = "YET-ANOTHER-ID";
+	const ID_CONN = "Y7h2LgDrBVh7wbSj";
 
 	/**
 	 * Fee of transaction
-	 * (100000000 == 0.0001 krb)
+	 * (100000000 == 0.0001 KRB)
 	 */
 	const KRB_FEE = 100000000;
 
 	/**
 	 * Transaction mixin
-	 * (same as ID of transaction, just leave it zero)
 	 */
 	const KRB_MIXIN = 0;
 
@@ -73,7 +72,15 @@ class Karbo {
 	private $service_mixin = null;
 	private $service_fee = null;
 
-	public function __construct($rpc_host = '', $rpc_port = '', $rpc_ssl = false) {
+	/**
+     * Constructor
+     * The constructor sets all important stuffs
+     *
+     * @param string [$rpc_host] Host of RPC API
+     * @param string [$rpc_port] Port of RPC API
+     * @param bool [$rpc_ssl] Type of connection
+     */
+	public function __construct($rpc_host = "", $rpc_port = "", $rpc_ssl = false) {
 		$this->id_connection = self::ID_CONN;
 		$this->service_host = self::RPC_HOST;
 		$this->service_port = self::RPC_PORT;
@@ -98,7 +105,9 @@ class Karbo {
 
 	/**
      * apiCall()
-     * Request to Simplewallet api 
+     * Request to Simplewallet API 
+     *
+     * @param array [$req] Request data
      */
 	private function apiCall($req) {
 		static $ch = null;
@@ -139,7 +148,9 @@ class Karbo {
 
 	/**
 	 * checkDestinations()
-	 * Check destinations of transaction
+	 * Check destinations of transaction, used for checking list of transactions
+	 *
+	 * @param array [$destinations] array which contain amount and address of reciver
 	 */
 	private function checkDestinations($destinations) {
 		$result = [];
@@ -158,6 +169,9 @@ class Karbo {
      * balanceFormat()
      * Converting balance format
      * Example: 100000000 -> 0.0001 ($mode = false) | 0.0001 -> 100000000 ($mode = true)
+     *
+     * @param string [$balance_src] Balance which needed to be converted
+     * @param bool [$mode] Type of convertion
      */
 	public static function balanceFormat($balance_src, $mode = false){
 		$balance_res = 0;
@@ -295,14 +309,58 @@ class Karbo {
 	    					$transferItem["address"] = $transfer["address"];
 	    					$transferItem["amount"] = self::balanceFormat($transfer["amount"]);
 	    					$transferItem["fee"] = self::balanceFormat($transfer["fee"]);
-	    					$transferItem["blockIndex"] = $transfer["blockIndex"];
+	    					$transferItem["block_index"] = $transfer["blockIndex"];
 	    					$transferItem["output"] = $transfer["output"];
-	    					$transferItem["paymentId"] = $transfer["paymentId"];
+	    					$transferItem["payment_id"] = $transfer["paymentId"];
 	    					$transferItem["time"] = $transfer["time"];
-	    					$transferItem["transactionHash"] = $transfer["transactionHash"];
-	    					$transferItem["unlockTime"] = $transfer["unlockTime"];
+	    					$transferItem["transaction_hash"] = $transfer["transactionHash"];
+	    					$transferItem["unlock_time"] = $transfer["unlockTime"];
 	    					
 	    					$result["transfers"][$key] = $transferItem;
+	    				}
+	  				}
+       			}
+      		}
+
+      		return $result;
+    	}
+
+    	return false;
+  	}
+
+  	/**
+     * getPayments()
+     * Returns incoming payments by payment id
+     *
+     * @param string [$payment_id] payment id of transaction
+     */
+	public function getPayments($paymentId) {
+	    $args = [];
+	    $args["jsonrpc"] = self::RPC_V;
+	    $args["method"] = "get_payments";
+	    $args["id"] = $this->id_connection;
+
+	    $args["params"] = [];
+	    $args["params"]["payment_id"] = $paymentId;
+
+	    $result = [];
+	    $data = $this->apiCall($args);
+	    $result["status"] = false;
+
+    	if (!$data === false) {
+      		if (isset($data["id"])) {
+        		if ($data["id"] == $this->id_connection) {
+          			$result["status"] = true;
+	  				if (isset($data["result"]["payments"])) {
+	    				$result["status"] = true;
+	    				foreach ($data["result"]["payments"] as $key => $payment) {
+	    					$paymentItem = [];
+	    					$paymentItem["amount"] = self::balanceFormat($payment["amount"]);
+	    					$paymentItem["block_height"] = $payment["block_height"];
+	    					$paymentItem["tx_hash"] = $payment["tx_hash"];
+	    					$paymentItem["unlock_time"] = $payment["unlock_time"];
+	    					
+	    					$result["payments"][$key] = $paymentItem;
 	    				}
 	  				}
        			}
@@ -345,8 +403,13 @@ class Karbo {
   	/**
      * transfer()
      * Make transfer form wallet
+     * 
+     * @param array [$destinations] array which contain amount and address of reciver
+     * @param string [$payment_id] payment id of transaction
+     * @param int [$fee] fee of transation
+     * @param int [$unlock_time] unlock time of transation
      */
-	public function transfer($destinations, $payment_id, $unlock_time = 0) {
+	public function transfer($destinations, $payment_id, $fee = 0, $unlock_time = 0) {
 	    $args = [];
 	    $args["jsonrpc"] = self::RPC_V;
 	    $args["method"] = "transfer";
@@ -357,7 +420,7 @@ class Karbo {
 	    $args["params"]["payment_id"] = $payment_id;
 	    $args["params"]["unlock_time"] = $unlock_time;
 	    $args["params"]["mixin"] = $this->service_mixin;
-	    $args["params"]["fee"] = $this->service_fee;
+	    $args["params"]["fee"] = ($fee > 0) ? $fee : $this->service_fee;
 
 	    $result = [];
 	    $data = $this->apiCall($args);
@@ -409,6 +472,8 @@ class Karbo {
 	/**
      * checkAddress()
      * Regex check for wallet address
+     *
+     * @param string [$address] Addres of Karbo wallet
      */
 	public static function checkAddress($address) {
 		$result = preg_match("/^K[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{94}$/", $address);
@@ -419,6 +484,8 @@ class Karbo {
 	/**
      * checkPaymentId()
      * Regex check for payment id
+     *
+     * @param string [$payment_id] Payment id
      */
 	public static function checkPaymentId($payment_id) {
 		$result = preg_match("\"[0-9A-Fa-f]{64}$\"", $payment_id);
