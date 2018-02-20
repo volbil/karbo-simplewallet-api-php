@@ -73,13 +73,13 @@ class Karbo {
 	private $service_fee = null;
 
 	/**
-     * Constructor
-     * The constructor sets all important stuffs
-     *
-     * @param string [$rpc_host] Host of RPC API
-     * @param string [$rpc_port] Port of RPC API
-     * @param bool [$rpc_ssl] Type of connection
-     */
+	 * Constructor
+	 * The constructor sets all important stuffs
+	 *
+	 * @param string [$rpc_host] Host of RPC API
+	 * @param string [$rpc_port] Port of RPC API
+	 * @param bool [$rpc_ssl] Type of connection
+	 */
 	public function __construct($rpc_host = "", $rpc_port = "", $rpc_ssl = false) {
 		$this->id_connection = self::ID_CONN;
 		$this->service_host = self::RPC_HOST;
@@ -104,11 +104,11 @@ class Karbo {
 	}
 
 	/**
-     * apiCall()
-     * Request to Simplewallet API 
-     *
-     * @param array [$req] Request data
-     */
+	 * apiCall()
+	 * Request to Simplewallet API 
+	 *
+	 * @param array [$req] Request data
+	 */
 	private function apiCall($req) {
 		static $ch = null;
 
@@ -166,13 +166,13 @@ class Karbo {
 	}
 
 	/**
-     * balanceFormat()
-     * Converting balance format
-     * Example: 100000000 -> 0.0001 ($mode = false) | 0.0001 -> 100000000 ($mode = true)
-     *
-     * @param string [$balance_src] Balance which needed to be converted
-     * @param bool [$mode] Type of convertion
-     */
+	 * balanceFormat()
+	 * Converting balance format
+	 * Example: 100000000 -> 0.0001 ($mode = false) | 0.0001 -> 100000000 ($mode = true)
+	 *
+	 * @param string [$balance_src] Balance which needed to be converted
+	 * @param bool [$mode] Type of convertion
+	 */
 	public static function balanceFormat($balance_src, $mode = false){
 		$balance_res = 0;
 		if ($balance_src > 0) {
@@ -187,294 +187,294 @@ class Karbo {
 	}
 
 	/**
-     * getBalance()
-     * Returns the wallet balance
-     */
+	 * getBalance()
+	 * Returns the wallet balance
+	 */
 	public function getBalance() {
-	    $args = [];
-	    $args["jsonrpc"] = self::RPC_V;
-	    $args["method"] = "getbalance";
-	    $args["id"] = $this->id_connection;
-	    $args["params"] = [];
+		$args = [];
+		$args["jsonrpc"] = self::RPC_V;
+		$args["method"] = "getbalance";
+		$args["id"] = $this->id_connection;
+		$args["params"] = [];
 
-	    $result = [];
-	    $data = $this->apiCall($args);
-	    $result["status"] = false;
+		$result = [];
+		$data = $this->apiCall($args);
+		$result["status"] = false;
 
-    	if (!$data === false) {
-      		if (isset($data["id"])) {
-        		if ($data["id"] == $this->id_connection) {
-          			$result["status"] = true;
-	  				if (isset($data["result"]["available_balance"])) {
-	    				$result["status"] = true;
-	    				$result["available_balance"] = self::balanceFormat($data["result"]["available_balance"], false);
-	    				$result['locked_amount'] = self::balanceFormat($data["result"]["locked_amount"], false);
-	  				}
-       			}
-      		}
+		if (!$data === false) {
+			if (isset($data["id"])) {
+				if ($data["id"] == $this->id_connection) {
+					$result["status"] = true;
+					if (isset($data["result"]["available_balance"])) {
+						$result["status"] = true;
+						$result["available_balance"] = self::balanceFormat($data["result"]["available_balance"], false);
+						$result['locked_amount'] = self::balanceFormat($data["result"]["locked_amount"], false);
+					}
+				}
+			}
 
-      		return $result;
-    	}
+			return $result;
+		}
 
-    	return false;
-  	}
+		return false;
+	}
 
-  	/**
-     * getAddress()
-     * Returns the wallet address
-     */
+	/**
+	 * getAddress()
+	 * Returns the wallet address
+	 */
 	public function getAddress() {
-	    $args = [];
-	    $args["jsonrpc"] = self::RPC_V;
-	    $args["method"] = "get_address";
-	    $args["id"] = $this->id_connection;
-	    $args["params"] = [];
+		$args = [];
+		$args["jsonrpc"] = self::RPC_V;
+		$args["method"] = "get_address";
+		$args["id"] = $this->id_connection;
+		$args["params"] = [];
 
-	    $result = [];
-	    $data = $this->apiCall($args);
-	    $result["status"] = false;
+		$result = [];
+		$data = $this->apiCall($args);
+		$result["status"] = false;
 
-    	if (!$data === false) {
-      		if (isset($data["id"])) {
-        		if ($data["id"] == $this->id_connection) {
-          			$result["status"] = true;
-	  				if (isset($data["result"]["address"])) {
-	    				$result["status"] = true;
-	    				$result["address"] = $data["result"]["address"];
-	  				}
-       			}
-      		}
+		if (!$data === false) {
+			if (isset($data["id"])) {
+				if ($data["id"] == $this->id_connection) {
+					$result["status"] = true;
+					if (isset($data["result"]["address"])) {
+						$result["status"] = true;
+						$result["address"] = $data["result"]["address"];
+					}
+				}
+			}
 
-      		return $result;
-    	}
+			return $result;
+		}
 
-    	return false;
-  	}
+		return false;
+	}
 
-  	/**
-     * getHeight()
-     * Returns current blockchain height
-     */
+	/**
+	 * getHeight()
+	 * Returns current blockchain height
+	 */
 	public function getHeight() {
-	    $args = [];
-	    $args["jsonrpc"] = self::RPC_V;
-	    $args["method"] = "get_height";
-	    $args["id"] = $this->id_connection;
-	    $args["params"] = [];
+		$args = [];
+		$args["jsonrpc"] = self::RPC_V;
+		$args["method"] = "get_height";
+		$args["id"] = $this->id_connection;
+		$args["params"] = [];
 
-	    $result = [];
-	    $data = $this->apiCall($args);
-	    $result["status"] = false;
+		$result = [];
+		$data = $this->apiCall($args);
+		$result["status"] = false;
 
-    	if (!$data === false) {
-      		if (isset($data["id"])) {
-        		if ($data["id"] == $this->id_connection) {
-          			$result["status"] = true;
-	  				if (isset($data["result"]["height"])) {
-	    				$result["status"] = true;
-	    				$result["height"] = $data["result"]["height"];
-	  				}
-       			}
-      		}
+		if (!$data === false) {
+			if (isset($data["id"])) {
+				if ($data["id"] == $this->id_connection) {
+					$result["status"] = true;
+					if (isset($data["result"]["height"])) {
+						$result["status"] = true;
+						$result["height"] = $data["result"]["height"];
+					}
+				}
+			}
 
-      		return $result;
-    	}
+			return $result;
+		}
 
-    	return false;
-  	}
+		return false;
+	}
 
-  	/**
-     * getTransfers()
-     * Returns incoming/outcoming transfert
-     */
+	/**
+	 * getTransfers()
+	 * Returns incoming/outcoming transfert
+	 */
 	public function getTransfers() {
-	    $args = [];
-	    $args["jsonrpc"] = self::RPC_V;
-	    $args["method"] = "get_transfers";
-	    $args["id"] = $this->id_connection;
-	    $args["params"] = [];
+		$args = [];
+		$args["jsonrpc"] = self::RPC_V;
+		$args["method"] = "get_transfers";
+		$args["id"] = $this->id_connection;
+		$args["params"] = [];
 
-	    $result = [];
-	    $data = $this->apiCall($args);
-	    $result["status"] = false;
+		$result = [];
+		$data = $this->apiCall($args);
+		$result["status"] = false;
 
-    	if (!$data === false) {
-      		if (isset($data["id"])) {
-        		if ($data["id"] == $this->id_connection) {
-          			$result["status"] = true;
-	  				if (isset($data["result"]["transfers"])) {
-	    				$result["status"] = true;
-	    				foreach ($data["result"]["transfers"] as $key => $transfer) {
-	    					$transferItem = [];
-	    					$transferItem["address"] = $transfer["address"];
-	    					$transferItem["amount"] = self::balanceFormat($transfer["amount"]);
-	    					$transferItem["fee"] = self::balanceFormat($transfer["fee"]);
-	    					$transferItem["block_index"] = $transfer["blockIndex"];
-	    					$transferItem["output"] = $transfer["output"];
-	    					$transferItem["payment_id"] = $transfer["paymentId"];
-	    					$transferItem["time"] = $transfer["time"];
-	    					$transferItem["transaction_hash"] = $transfer["transactionHash"];
-	    					$transferItem["unlock_time"] = $transfer["unlockTime"];
-	    					
-	    					$result["transfers"][$key] = $transferItem;
-	    				}
-	  				}
-       			}
-      		}
+		if (!$data === false) {
+			if (isset($data["id"])) {
+				if ($data["id"] == $this->id_connection) {
+					$result["status"] = true;
+					if (isset($data["result"]["transfers"])) {
+						$result["status"] = true;
+						foreach ($data["result"]["transfers"] as $key => $transfer) {
+							$transferItem = [];
+							$transferItem["address"] = $transfer["address"];
+							$transferItem["amount"] = self::balanceFormat($transfer["amount"]);
+							$transferItem["fee"] = self::balanceFormat($transfer["fee"]);
+							$transferItem["block_index"] = $transfer["blockIndex"];
+							$transferItem["output"] = $transfer["output"];
+							$transferItem["payment_id"] = $transfer["paymentId"];
+							$transferItem["time"] = $transfer["time"];
+							$transferItem["transaction_hash"] = $transfer["transactionHash"];
+							$transferItem["unlock_time"] = $transfer["unlockTime"];
+							
+							$result["transfers"][$key] = $transferItem;
+						}
+					}
+				}
+			}
 
-      		return $result;
-    	}
+			return $result;
+		}
 
-    	return false;
-  	}
+		return false;
+	}
 
-  	/**
-     * getPayments()
-     * Returns incoming payments by payment id
-     *
-     * @param string [$payment_id] payment id of transaction
-     */
+	/**
+	 * getPayments()
+	 * Returns incoming payments by payment id
+	 *
+	 * @param string [$payment_id] payment id of transaction
+	 */
 	public function getPayments($paymentId) {
-	    $args = [];
-	    $args["jsonrpc"] = self::RPC_V;
-	    $args["method"] = "get_payments";
-	    $args["id"] = $this->id_connection;
+		$args = [];
+		$args["jsonrpc"] = self::RPC_V;
+		$args["method"] = "get_payments";
+		$args["id"] = $this->id_connection;
 
-	    $args["params"] = [];
-	    $args["params"]["payment_id"] = $paymentId;
+		$args["params"] = [];
+		$args["params"]["payment_id"] = $paymentId;
 
-	    $result = [];
-	    $data = $this->apiCall($args);
-	    $result["status"] = false;
+		$result = [];
+		$data = $this->apiCall($args);
+		$result["status"] = false;
 
-    	if (!$data === false) {
-      		if (isset($data["id"])) {
-        		if ($data["id"] == $this->id_connection) {
-          			$result["status"] = true;
+		if (!$data === false) {
+	  		if (isset($data["id"])) {
+				if ($data["id"] == $this->id_connection) {
+		  			$result["status"] = true;
 	  				if (isset($data["result"]["payments"])) {
-	    				$result["status"] = true;
-	    				foreach ($data["result"]["payments"] as $key => $payment) {
-	    					$paymentItem = [];
-	    					$paymentItem["amount"] = self::balanceFormat($payment["amount"]);
-	    					$paymentItem["block_height"] = $payment["block_height"];
-	    					$paymentItem["tx_hash"] = $payment["tx_hash"];
-	    					$paymentItem["unlock_time"] = $payment["unlock_time"];
-	    					
-	    					$result["payments"][$key] = $paymentItem;
-	    				}
-	  				}
-       			}
-      		}
+						$result["status"] = true;
+						foreach ($data["result"]["payments"] as $key => $payment) {
+							$paymentItem = [];
+							$paymentItem["amount"] = self::balanceFormat($payment["amount"]);
+							$paymentItem["block_height"] = $payment["block_height"];
+							$paymentItem["tx_hash"] = $payment["tx_hash"];
+							$paymentItem["unlock_time"] = $payment["unlock_time"];
+							
+							$result["payments"][$key] = $paymentItem;
+						}
+					}
+				}
+			}
 
-      		return $result;
-    	}
+			return $result;
+		}
 
-    	return false;
-  	}
+		return false;
+	}
 
-  	/**
-     * store()
-     * Store wallet data
-     */
+	/**
+	 * store()
+	 * Store wallet data
+	 */
 	public function store() {
-	    $args = [];
-	    $args["jsonrpc"] = self::RPC_V;
-	    $args["method"] = "store";
-	    $args["id"] = $this->id_connection;
-	    $args["params"] = [];
+		$args = [];
+		$args["jsonrpc"] = self::RPC_V;
+		$args["method"] = "store";
+		$args["id"] = $this->id_connection;
+		$args["params"] = [];
 
-	    $result = [];
-	    $data = $this->apiCall($args);
-	    $result["status"] = false;
+		$result = [];
+		$data = $this->apiCall($args);
+		$result["status"] = false;
 
-    	if (!$data === false) {
-      		if (isset($data["id"])) {
-        		if ($data["id"] == $this->id_connection) {
-          			$result["status"] = true;
-       			}
-      		}
+		if (!$data === false) {
+			if (isset($data["id"])) {
+				if ($data["id"] == $this->id_connection) {
+					$result["status"] = true;
+				}
+			}
 
-      		return $result;
-    	}
+			return $result;
+		}
 
-    	return false;
-  	}
+		return false;
+	}
 
-  	/**
-     * transfer()
-     * Make transfer form wallet
-     * 
-     * @param array [$destinations] array which contain amount and address of reciver
-     * @param string [$payment_id] payment id of transaction
-     * @param int [$fee] fee of transation
-     * @param int [$unlock_time] unlock time of transation
-     */
+	/**
+	 * transfer()
+	 * Make transfer form wallet
+	 * 
+	 * @param array [$destinations] array which contain amount and address of reciver
+	 * @param string [$payment_id] payment id of transaction
+	 * @param int [$fee] fee of transation
+	 * @param int [$unlock_time] unlock time of transation
+	 */
 	public function transfer($destinations, $payment_id, $fee = 0, $unlock_time = 0) {
-	    $args = [];
-	    $args["jsonrpc"] = self::RPC_V;
-	    $args["method"] = "transfer";
-	    $args["id"] = $this->id_connection;
+		$args = [];
+		$args["jsonrpc"] = self::RPC_V;
+		$args["method"] = "transfer";
+		$args["id"] = $this->id_connection;
 
-	    $args["params"] = [];
-	    $args["params"]["destinations"] = self::checkDestinations($destinations);
-	    $args["params"]["payment_id"] = $payment_id;
-	    $args["params"]["unlock_time"] = $unlock_time;
-	    $args["params"]["mixin"] = $this->service_mixin;
-	    $args["params"]["fee"] = ($fee > 0) ? $fee : $this->service_fee;
+		$args["params"] = [];
+		$args["params"]["destinations"] = self::checkDestinations($destinations);
+		$args["params"]["payment_id"] = $payment_id;
+		$args["params"]["unlock_time"] = $unlock_time;
+		$args["params"]["mixin"] = $this->service_mixin;
+		$args["params"]["fee"] = ($fee > 0) ? $fee : $this->service_fee;
 
-	    $result = [];
-	    $data = $this->apiCall($args);
-	    $result["status"] = false;
+		$result = [];
+		$data = $this->apiCall($args);
+		$result["status"] = false;
 
-    	if (!$data === false) {
-      		if (isset($data["id"])) {
-        		if ($data["id"] == $this->id_connection) {
-          			$result["status"] = true;
-          			$result["tx_hash"] = $data["result"]["tx_hash"];
-          			$result["payment_id"] = $payment_id;
-       			}
-      		}
+		if (!$data === false) {
+			if (isset($data["id"])) {
+				if ($data["id"] == $this->id_connection) {
+					$result["status"] = true;
+					$result["tx_hash"] = $data["result"]["tx_hash"];
+					$result["payment_id"] = $payment_id;
+				}
+			}
 
-      		return $result;
-    	}
+			return $result;
+		}
 
-    	return false;
-  	}
+		return false;
+	}
 
-  	/**
-     * reset()
-     * Re-synchronize the wallet from scratch
-     */
+	/**
+	 * reset()
+	 * Re-synchronize the wallet from scratch
+	 */
 	public function reset() {
-	    $args = [];
-	    $args["jsonrpc"] = self::RPC_V;
-	    $args["method"] = "reset";
-	    $args["id"] = $this->id_connection;
-	    $args["params"] = [];
+		$args = [];
+		$args["jsonrpc"] = self::RPC_V;
+		$args["method"] = "reset";
+		$args["id"] = $this->id_connection;
+		$args["params"] = [];
 
-	    $result = [];
-	    $data = $this->apiCall($args);
-	    $result["status"] = false;
+		$result = [];
+		$data = $this->apiCall($args);
+		$result["status"] = false;
 
-    	if (!$data === false) {
-      		if (isset($data["id"])) {
-        		if ($data["id"] == $this->id_connection) {
-          			$result["status"] = true;
-       			}
-      		}
+		if (!$data === false) {
+			if (isset($data["id"])) {
+				if ($data["id"] == $this->id_connection) {
+					$result["status"] = true;
+				}
+			}
 
-      		return $result;
-    	}
+			return $result;
+		}
 
-    	return false;
-  	}
+		return false;
+	}
 	
 	/**
-     * checkAddress()
-     * Regex check for wallet address
-     *
-     * @param string [$address] Addres of Karbo wallet
-     */
+	 * checkAddress()
+	 * Regex check for wallet address
+	 *
+	 * @param string [$address] Addres of Karbo wallet
+	 */
 	public static function checkAddress($address) {
 		$result = preg_match("/^K[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{94}$/", $address);
 
@@ -482,11 +482,11 @@ class Karbo {
 	}
 
 	/**
-     * checkPaymentId()
-     * Regex check for payment id
-     *
-     * @param string [$payment_id] Payment id
-     */
+	 * checkPaymentId()
+	 * Regex check for payment id
+	 *
+	 * @param string [$payment_id] Payment id
+	 */
 	public static function checkPaymentId($payment_id) {
 		$result = preg_match("\"[0-9A-Fa-f]{64}$\"", $payment_id);
 
@@ -494,9 +494,9 @@ class Karbo {
 	}
 
 	/**
-     * genPaymentId()
-     * Generate payment id
-     */
+	 * genPaymentId()
+	 * Generate payment id
+	 */
 	public static function genPaymentId() {
 		$buff = "";
 		$buff = bin2hex(openssl_random_pseudo_bytes(32));
