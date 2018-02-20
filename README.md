@@ -1,4 +1,4 @@
-# PHP class for interaction with Simplewallet JSON RPC API
+# PHP class for interaction with Karbo Simplewallet JSON RPC API
 
 Simple php class for interaction with [Karbo Simplewallet JSON RPC API](https://github.com/seredat/Karbo).
 
