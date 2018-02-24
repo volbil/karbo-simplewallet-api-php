@@ -29,9 +29,9 @@ Return wallet balance.
 ###### Output data: ######
 ```
 {
-    "status": true,
-    "available_balance": 100,
-    "locked_amount": 0
+	"status": true,
+	"available_balance": 100,
+	"locked_amount": 0
 }
 ```
 
@@ -42,15 +42,15 @@ Returns wallet address.
 ###### Example of usage: ######
 ```
 <?php
- 	$krbWallet = new Karbo();
+	$krbWallet = new Karbo();
 	$balance = $krbWallet->getAddress();
 ?>
 ```
 ###### Output data: ######
 ```
 {
-    "status": true,
-    "address": "KctbUcra6R4DLHmDYbVvfrDBLQHxpjN2xVKs9EcmsDivXVWiu15uuF2YKgZfMPEYgT5dS4JGuJERmY46AwEVehwq35acL8f "
+	"status": true,
+	"address": "KctbUcra6R4DLHmDYbVvfrDBLQHxpjN2xVKs9EcmsDivXVWiu15uuF2YKgZfMPEYgT5dS4JGuJERmY46AwEVehwq35acL8f "
 }
 ```
 
@@ -61,15 +61,15 @@ Returns the last top known block height for simplewallet. This method can be use
 ###### Example of usage: ######
 ```
 <?php
- 	$krbWallet = new Karbo();
+	$krbWallet = new Karbo();
 	$balance = $krbWallet->getHeight();
 ?>
 ```
 ###### Output data: ######
 ```
 {
-    "status": true,
-    "height": 201631
+	"status": true,
+	"height": 201631
 }
 ```
 
@@ -80,35 +80,35 @@ Returns the list of all the wallet's incoming and outgoing transfers.
 ###### Example of usage: ######
 ```
 <?php
- 	$krbWallet = new Karbo();
+	$krbWallet = new Karbo();
 	$balance = $krbWallet->getTransfers();
 ?>
 ```
 ###### Output data: ######
 ```
 {
-    "status": true,
-    "transfers": [{
-        "address": "",
-        "amount": 1,
-        "fee": 0.0001,
-        "blockIndex": 200561,
-        "output": false,
-        "paymentId": "b661ca369901e91f51083bb131ad26c5c04d725bc0dfe3692e63fc4e093d331e",
-        "time": 1518824088,
-        "transactionHash": "5d67329ce94e8a127b1490b281feb13f74c18d0ac1dbe49338c1663c34a27738",
-        "unlock_time": 0
-    }, {
-        "address": "KeRRSeu1z1PYQz9eTWy8W4efGTMB9ZCbxayX85rRr5w8E1gqDMujgtPLeGPmvcT1DPjoU7iCpbrn7KJxMpJhUTfrJjcKGpt",
-        "amount": 1,
-        "fee": 0.0001,
-        "blockIndex": 201589,
-        "output": true,
-        "paymentId": "17d37b8d5a76da4e5e0d16459b386601e0a38eac80956f2d1abfeab4dda715a7",
-        "time": 1519096397,
-        "transactionHash": "db56c8f6bf45e37f4bfd1d0201d4fbe5e2514676e30018116b2491f8c71a9230",
-        "unlock_time": 0
-    }]
+	"status": true,
+	"transfers": [{
+		"address": "",
+		"amount": 1,
+		"fee": 0.0001,
+		"blockIndex": 200561,
+		"output": false,
+		"paymentId": "b661ca369901e91f51083bb131ad26c5c04d725bc0dfe3692e63fc4e093d331e",
+		"time": 1518824088,
+		"transactionHash": "5d67329ce94e8a127b1490b281feb13f74c18d0ac1dbe49338c1663c34a27738",
+		"unlock_time": 0
+	}, {
+		"address": "KeRRSeu1z1PYQz9eTWy8W4efGTMB9ZCbxayX85rRr5w8E1gqDMujgtPLeGPmvcT1DPjoU7iCpbrn7KJxMpJhUTfrJjcKGpt",
+		"amount": 1,
+		"fee": 0.0001,
+		"blockIndex": 201589,
+		"output": true,
+		"paymentId": "17d37b8d5a76da4e5e0d16459b386601e0a38eac80956f2d1abfeab4dda715a7",
+		"time": 1519096397,
+		"transactionHash": "db56c8f6bf45e37f4bfd1d0201d4fbe5e2514676e30018116b2491f8c71a9230",
+		"unlock_time": 0
+	}]
 }
 ```
 
@@ -119,7 +119,7 @@ Receives all the payments with a corresponding payment_id that were sent to the 
 ###### Example of usage: ######
 ```
 <?php
- 	$krbWallet = new Karbo();
+	$krbWallet = new Karbo();
 	$paymentId = "b661ca369901e91f51083bb131ad26c5c04d725bc0dfe3692e63fc4e093d331e";
 	$krbWallet->getPayments($paymentId);
 ?>
@@ -127,13 +127,13 @@ Receives all the payments with a corresponding payment_id that were sent to the 
 ###### Output data: ######
 ```
 {
-    "status": true,
-    "payments": [{
-        "amount": 1,
-        "block_height": 200561,
-        "tx_hash": "5d67329ce94e8a127b1490b281feb13f74c18d0ac1dbe49338c1663c34a27738",
-        "unlock_time": 0
-    }]
+	"status": true,
+	"payments": [{
+		"amount": 1,
+		"block_height": 200561,
+		"tx_hash": "5d67329ce94e8a127b1490b281feb13f74c18d0ac1dbe49338c1663c34a27738",
+		"unlock_time": 0
+	}]
 }
 ```
 
@@ -146,28 +146,28 @@ Please note: fee param is a mandatory and should not be less than 0.0001 KRB.
 ###### Example of usage: ######
 ```
 <?php
- 	$krbWallet = new Karbo();
+	$krbWallet = new Karbo();
 	$paymentID = $krbWallet->genPaymentId();
 	$fee = $krbWallet->genPaymentId();
 	$unlock_time = 0;
 	$transData = [
 		[
 			"amount" => "100",
-            "address" => "KeRRSeu1z1PYQz9eTWy8W4efGTMB9ZCbxayX85rRr5w8E1gqDMujgtPLeGPmvcT1DPjoU7iCpbrn7KJxMpJhUTfrJjcKGpt"
+			"address" => "KeRRSeu1z1PYQz9eTWy8W4efGTMB9ZCbxayX85rRr5w8E1gqDMujgtPLeGPmvcT1DPjoU7iCpbrn7KJxMpJhUTfrJjcKGpt"
 		]
 	];
-    $krbWallet->transfer($transData, $paymentID, $fee, $unlock_time);
+	$krbWallet->transfer($transData, $paymentID, $fee, $unlock_time);
 ?>
 ```
 ###### Output data: ######
 ```
 {
-    "status": true,
-    "payments": [{
-        "amount": 1,
-        "tx_hash": "5d67329ce94e8a127b1490b281feb13f74c18d0ac1dbe49338c1663c34a27738",
-        "payment_id": "17d37b8d5a76da4e5e0d16459b386601e0a38eac80956f2d1abfeab4dda715a7"
-    }]
+	"status": true,
+	"payments": [{
+		"amount": 1,
+		"tx_hash": "5d67329ce94e8a127b1490b281feb13f74c18d0ac1dbe49338c1663c34a27738",
+		"payment_id": "17d37b8d5a76da4e5e0d16459b386601e0a38eac80956f2d1abfeab4dda715a7"
+	}]
 }
 ```
 
@@ -178,14 +178,14 @@ Store wallet data.
 ###### Example of usage: ######
 ```
 <?php
- 	$krbWallet = new Karbo();
+	$krbWallet = new Karbo();
 	$balance = $krbWallet->store();
 ?>
 ```
 ###### Output data: ######
 ```
 {
-    "status": true
+	"status": true
 }
 ```
 
@@ -196,14 +196,14 @@ Erases simplewallet's internal state but keeps safe the wallet.bin. The method s
 ###### Example of usage: ######
 ```
 <?php
- 	$krbWallet = new Karbo();
+	$krbWallet = new Karbo();
 	$balance = $krbWallet->reset();
 ?>
 ```
 ###### Output data: ######
 ```
 {
-    "status": true
+	"status": true
 }
 ```
 
@@ -214,7 +214,7 @@ Generate payment id
 ###### Example of usage: ######
 ```
 <?php
-    Karbo::genPaymentId();
+	Karbo::genPaymentId();
 ?>
 ```
 ###### Output data: ######
@@ -229,7 +229,7 @@ Check if address valid
 ###### Example of usage: ######
 ```
 <?php
-    Karbo::checkAddress("KeRRSeu1z1PYQz9eTWy8W4efGTMB9ZCbxayX85rRr5w8E1gqDMujgtPLeGPmvcT1DPjoU7iCpbrn7KJxMpJhUTfrJjcKGpt");
+	Karbo::checkAddress("KeRRSeu1z1PYQz9eTWy8W4efGTMB9ZCbxayX85rRr5w8E1gqDMujgtPLeGPmvcT1DPjoU7iCpbrn7KJxMpJhUTfrJjcKGpt");
 ?>
 ```
 ###### Output data: ######
@@ -244,7 +244,7 @@ Check if payment id valid
 ###### Example of usage: ######
 ```
 <?php
-    Karbo::checkPaymentId("66897070238bc2c47bed4a327f78bed3ece3b87c30b1cb78c535597fd0c19456");
+	Karbo::checkPaymentId("66897070238bc2c47bed4a327f78bed3ece3b87c30b1cb78c535597fd0c19456");
 ?>
 ```
 ###### Output data: ######
