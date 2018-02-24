@@ -11,6 +11,9 @@ Simple php class for interaction with [Karbo Simplewallet JSON RPC API](https://
 * transfer
 * store
 * reset
+* genPaymentId
+* checkAddress
+* checkPaymentId
 
 ### getBalance ###
 
@@ -202,6 +205,51 @@ Erases simplewallet's internal state but keeps safe the wallet.bin. The method s
 {
     "status": true
 }
+```
+
+### genPaymentId ###
+
+Generate payment id
+
+###### Example of usage: ######
+```
+<?php
+    Karbo::genPaymentId();
+?>
+```
+###### Output data: ######
+```
+66897070238bc2c47bed4a327f78bed3ece3b87c30b1cb78c535597fd0c19456
+```
+
+### checkAddress ###
+
+Check if address valid
+
+###### Example of usage: ######
+```
+<?php
+    Karbo::checkAddress("KeRRSeu1z1PYQz9eTWy8W4efGTMB9ZCbxayX85rRr5w8E1gqDMujgtPLeGPmvcT1DPjoU7iCpbrn7KJxMpJhUTfrJjcKGpt");
+?>
+```
+###### Output data: ######
+```
+true
+```
+
+### checkPaymentId ###
+
+Check if payment id valid
+
+###### Example of usage: ######
+```
+<?php
+    Karbo::checkPaymentId("66897070238bc2c47bed4a327f78bed3ece3b87c30b1cb78c535597fd0c19456");
+?>
+```
+###### Output data: ######
+```
+true
 ```
 
 Based on [Lastick/karbo-api-php](https://github.com/seredat/karbowanec/wiki/Simplewallet-JSON-RPC-API) and [Simplewallet JSON RPC API wiki page](https://github.com/seredat/karbowanec/wiki/Simplewallet-JSON-RPC-API)
