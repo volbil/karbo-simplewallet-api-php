@@ -304,6 +304,7 @@ class Karbo {
 					$result["status"] = true;
 					if (isset($data["result"]["transfers"])) {
 						$result["status"] = true;
+						$result["transfers"] = [];
 						foreach ($data["result"]["transfers"] as $key => $transfer) {
 							$transferItem = [];
 							$transferItem["address"] = $transfer["address"];
@@ -353,6 +354,7 @@ class Karbo {
 		  			$result["status"] = true;
 	  				if (isset($data["result"]["payments"])) {
 						$result["status"] = true;
+						$result["payments"] = [];
 						foreach ($data["result"]["payments"] as $key => $payment) {
 							$paymentItem = [];
 							$paymentItem["amount"] = self::balanceFormat($payment["amount"]);

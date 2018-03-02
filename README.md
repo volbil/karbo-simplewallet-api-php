@@ -163,11 +163,9 @@ Please note: fee param is a mandatory and should not be less than 0.0001 KRB.
 ```
 {
 	"status": true,
-	"payments": [{
-		"amount": 1,
-		"tx_hash": "5d67329ce94e8a127b1490b281feb13f74c18d0ac1dbe49338c1663c34a27738",
-		"payment_id": "17d37b8d5a76da4e5e0d16459b386601e0a38eac80956f2d1abfeab4dda715a7"
-	}]
+	"amount": 1,
+	"tx_hash": "5d67329ce94e8a127b1490b281feb13f74c18d0ac1dbe49338c1663c34a27738",
+	"payment_id": "17d37b8d5a76da4e5e0d16459b386601e0a38eac80956f2d1abfeab4dda715a7"
 }
 ```
 
@@ -252,6 +250,6 @@ Check if payment id valid
 true
 ```
 
-Based on [Lastick/karbo-api-php](https://github.com/seredat/karbowanec/wiki/Simplewallet-JSON-RPC-API) and [Simplewallet JSON RPC API wiki page](https://github.com/seredat/karbowanec/wiki/Simplewallet-JSON-RPC-API)
+Based on [Lastick/karbo-api-php](https://github.com/Lastick/karbo-api-php) and [Simplewallet JSON RPC API wiki page](https://github.com/seredat/karbowanec/wiki/Simplewallet-JSON-RPC-API)
 
 Made with <3 by Volbil
